@@ -42,6 +42,12 @@ function App() {
   //edit ID fetch
   function handleEdit(id){
     setEditId(id)
+
+    // useEffect(() =>{
+      // fetch(`http://localhost:9292/pokemons/${id}`)
+      // .then(resp => resp.json())
+      // .then((data) => setSinglePoke(data))
+    // }, []);
   }
   useEffect(() =>{
     fetch(`http://localhost:9292/pokemons/${editId}`)
@@ -49,6 +55,10 @@ function App() {
     .then((data) => setSinglePoke(data))
   }, [editId]);
 
+  //move submit data
+  function handleMovesEdit(data){
+    console.log({...singlePoke.moves, data})
+  }
 
   return (
     <div className="App">
@@ -61,7 +71,9 @@ function App() {
           <NewPokemon types={types} newPokemon={newPokemon}/>} 
         />
         <Route path="/pokemons/:id/edit" element={
-          <PokemonDetails singlePoke={singlePoke} moves={moves}/>}
+          <PokemonDetails singlePoke={singlePoke} 
+            moves={moves} 
+            handleMovesEdit={handleMovesEdit}/>}
         />
       </Routes>
     </div>
