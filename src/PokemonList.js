@@ -2,13 +2,14 @@ import React from 'react'
 import Pokemon from './Pokemon'
 import {Container, Row, Col} from 'react-bootstrap/';
 
-function PokemonList({pokemons, handleEdit}) {
+function PokemonList({pokemons, deletedPoke}) {
+
     const pokes = pokemons.map( pokemon => {
         return (
         <Pokemon
             key={pokemon.id}
             pokemon={pokemon}
-            handleEdit={handleEdit}
+            deletedPoke={deletedPoke}
         />
         )
     })

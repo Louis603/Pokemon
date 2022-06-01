@@ -3,12 +3,34 @@ import { Form, Button} from 'react-bootstrap/';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {useState, useEffect} from "react";
+import { useParams } from 'react-router-dom'
 
-function PokemonDetails({singlePoke, moves, handleMovesEdit}) {
-    const {name, hp, image, id} = singlePoke
-    // const [pokeId, setPokeId] = useState(id)
+function PokemonDetails({moves}) {
     const [moveId, setMoveId] = useState()
-    console.log(moves)
+    const [addedMove, setAddedMove] = useState({})
+    const [singlePoke, setSinglePoke] = useState({
+        moves: []
+    })
+
+    const { id } = useParams()
+
+    useEffect(() =>{
+    fetch(`http://localhost:9292/pokemons/${id}`)
+    .then(resp => resp.json())
+    .then((data) => setSinglePoke(data))
+  }, [id, addedMove]);
+
+    const allMoves = singlePoke.moves
+    const moveList = allMoves.map(moves => {
+        return (
+            <div key={moves.id}>
+                <p>{moves.name}</p>
+                <p>{moves.damage}</p>
+                <p>{moves.type.element}</p>
+            </div>
+        )
+    })
+
     const allAttacks = moves.map(move => {
         return (
             <option 
@@ -16,18 +38,6 @@ function PokemonDetails({singlePoke, moves, handleMovesEdit}) {
             value={move.id}>
                 {move.name}
             </option>
-        )
-    })
-
-    
-    const allMoves = singlePoke.moves
-    const moveList = allMoves.map(move => {
-        return (
-            <div key={move.id}>
-                <p>{move.name}</p>
-                <p>{move.damage}</p>
-                <p>{move.type.element}</p>
-            </div>
         )
     })
 
@@ -46,33 +56,32 @@ function PokemonDetails({singlePoke, moves, handleMovesEdit}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(pokeMoves)
         }).then(resp => resp.json())
-          .then(data => handleMovesEdit(data))
+          .then(data => setAddedMove(data))
         
     }
-    console.log(id)
   
     return (
-    <div>
-        <img src ={image}/>
-        <p>{name}</p>
-        {moveList}
+        <div>
+            <img src ={singlePoke.image}/>
+            <p>{singlePoke.name}</p>
+            {moveList}
 
 
-        <h1> Add new moves!
-        <form onSubmit={(e)=>handleSubmit(e)}>
-            <Col xs={2}>
-                <Form.Select name='move_id' onChange={handleChange}>
-                    <option>Moves</option>
-                    {allAttacks}
-                </Form.Select>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Col>
-        </form>
-        </h1>
+            <h1> Add new moves!
+            <form onSubmit={(e)=>handleSubmit(e)}>
+                <Col xs={2}>
+                    <Form.Select name='move_id' onChange={handleChange}>
+                        <option>Moves</option>
+                        {allAttacks}
+                    </Form.Select>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Col>
+            </form>
+            </h1>
 
-    </div>
+        </div>
   )
 }
 

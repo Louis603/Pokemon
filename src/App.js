@@ -6,13 +6,16 @@ import PokemonList from './PokemonList'
 import Header from './Header'
 import NewPokemon from './NewPokemon'
 import PokemonDetails from './PokemonDetails'
+import AddMoves from './AddMoves'
+import Home from './Home'
+import PokemonDescription from './PokemonDescription';
 
 function App() {
   const [pokemonArr, setpokemonArr] = useState([])
   const [types, setTypes] = useState([])
   const [moves, setMoves] = useState([])
   const [singlePoke, setSinglePoke] = useState({})
-  const [editId, setEditId] = useState(1)
+
 //GET requests for pokemons
   useEffect(() =>{
     fetch("http://localhost:9292/pokemons")
@@ -39,41 +42,46 @@ function App() {
     setpokemonArr([...pokemonArr, data])
   }
 
-  //edit ID fetch
-  function handleEdit(id){
-    setEditId(id)
-
-    // useEffect(() =>{
-      // fetch(`http://localhost:9292/pokemons/${id}`)
-      // .then(resp => resp.json())
-      // .then((data) => setSinglePoke(data))
-    // }, []);
+  //new move form data
+  function newMove(data){
+    setMoves([...moves, data])
   }
-  useEffect(() =>{
-    fetch(`http://localhost:9292/pokemons/${editId}`)
-    .then(resp => resp.json())
-    .then((data) => setSinglePoke(data))
-  }, [editId]);
 
-  //move submit data
-  function handleMovesEdit(data){
-    console.log({...singlePoke.moves, data})
+  //pokemon delete ID
+  function deletedPoke(data){
+    const newPokeArr = pokemonArr.filter(poke => poke.id !== data)
+    setpokemonArr(newPokeArr)
+  }
+
+  //pokemon edit info
+  function handlePokeEdit(data){
+    setpokemonArr(pokemonArr.map(pokemon => pokemon.id === data.id ? data : pokemon))
   }
 
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={
-          <PokemonList pokemons={pokemonArr} handleEdit={handleEdit}/>} 
+        <Route path="/" element={<Home />}/>
+        <Route path="/pokemons" element={
+          <PokemonList pokemons={pokemonArr} deletedPoke={deletedPoke}/>} 
         />
         <Route path="/new" element={
           <NewPokemon types={types} newPokemon={newPokemon}/>} 
         />
+        <Route path="/pokemons/:id/add_moves" element={
+          <PokemonDetails
+            moves={moves}
+            
+            />}
+        />
         <Route path="/pokemons/:id/edit" element={
-          <PokemonDetails singlePoke={singlePoke} 
-            moves={moves} 
-            handleMovesEdit={handleMovesEdit}/>}
+          <PokemonDescription
+          handlePokeEdit={handlePokeEdit} 
+            />}
+        />
+        <Route path="/new_moves" element={
+          <AddMoves types={types} newMove={newMove}/>} 
         />
       </Routes>
     </div>

@@ -3,8 +3,10 @@ import { Form, Button} from 'react-bootstrap/';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {useState, useEffect} from "react";
+import { useNavigate } from "react-router";
 
 function NewPokemon({types, newPokemon}) {
+    let navigate = useNavigate()
     const allTypes = types.map(type => {
         return (
             <option 
@@ -14,18 +16,17 @@ function NewPokemon({types, newPokemon}) {
             </option>
         )
     })
-
     const [form, setForm] = useState({
         name: "",
         hp: "",
         height: "",
-        weight: "", 
+        // weight: "", 
         description: "",
         image: "",
         type:"",
         type_id: ""
     })
-
+    
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value})
         // console.log(form)
@@ -40,7 +41,17 @@ function NewPokemon({types, newPokemon}) {
             body: JSON.stringify(form)
         }).then(resp => resp.json())
           .then(data => newPokemon(data))
-
+          navigate("/pokemons")
+          setForm({
+            name: "",
+            hp: "",
+            height: "",
+            // weight: "", 
+            description: "",
+            image: "",
+            type:"",
+            type_id: ""
+          })
     }
 
 
@@ -58,9 +69,9 @@ function NewPokemon({types, newPokemon}) {
         <Col xs={2}>
             <Form.Control type="number" placeholder="Height" name="height" value={form.height} onChange={handleChange}/>
         </Col>
-        <Col xs={2}>
+        {/* <Col xs={2}>
             <Form.Control type="number" placeholder="Weight" name="weight" value={form.weight} onChange={handleChange}/>
-        </Col>
+        </Col> */}
         <Col xs={2}>
             <Form.Control as="textarea" type="text" placeholder="Description" name="description" value={form.description} onChange={handleChange}/>
         </Col>
