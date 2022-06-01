@@ -1,20 +1,22 @@
 import React from 'react'
 import {Container, Row,Col} from 'react-bootstrap/';
+import { Link } from 'react-router-dom'
 
-function Pokemon({pokemon}) {
-    const {name, hp, height, description, image, type} = pokemon
-    console.log(type.element)
-  return (
+function Pokemon({pokemon, handleEdit}) {
+    const {name, hp, height, description, image, type, id} = pokemon
+  
+   return (
     <Col>
         <img src ={image}/>
         <p>{name}</p>
-        <p>{type.element}</p>
+        {/* <p>{type.element}</p> */}
         <p>{hp}</p>
         <p>{height}</p>
         <p>{description}</p>
         
-        <button>Add Moves</button>
-        
+        <Link to={`/pokemons/${id}/edit`}>
+            <button onClick={() => handleEdit(id)}>Add Moves</button>
+        </Link>
     </Col>
   )
 }

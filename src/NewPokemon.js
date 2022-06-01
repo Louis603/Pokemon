@@ -4,7 +4,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {useState, useEffect} from "react";
 
-function NewPokemon() {
+function NewPokemon({types, newPokemon}) {
+    const allTypes = types.map(type => {
+        return (
+            <option 
+            key={type.id}
+            value= {type.id}>
+                {type.element}
+            </option>
+        )
+    })
+
     const [form, setForm] = useState({
         name: "",
         hp: "",
@@ -12,12 +22,13 @@ function NewPokemon() {
         weight: "", 
         description: "",
         image: "",
+        type:"",
         type_id: ""
     })
 
     function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value})
-        console.log(form)
+        // console.log(form)
     }
 
     function handleSubmit(e){
@@ -28,7 +39,7 @@ function NewPokemon() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(form)
         }).then(resp => resp.json())
-          .then(data => console.log(data))
+          .then(data => newPokemon(data))
 
     }
 
@@ -60,9 +71,10 @@ function NewPokemon() {
         <Col xs={2}>
           <Form.Select name='type_id' value={form.type_id} onChange={handleChange} >
             <option >Type</option>
-            <option value= "1">Fire</option>
+            {/* <option value= "1">Fire</option>
             <option value="2">Water</option>
-            <option value="3">Grass</option>
+            <option value="3">Grass</option> */}
+            {allTypes}
           </Form.Select>
         </Col>
 
