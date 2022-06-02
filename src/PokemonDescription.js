@@ -30,12 +30,10 @@ function PokemonDescription({handlePokeEdit}) {
 
       function handleChange(e){
         setForm({...form,[e.target.name]:e.target.value})
-        console.log(form)
     }
 
     function handleSubmit(e){
       e.preventDefault()
-        console.log("hi")
       fetch(`http://localhost:9292/pokemons/${id}`, {
       method: "PATCH",
       headers: {
