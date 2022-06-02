@@ -1,10 +1,11 @@
 import React from 'react'
-import {Container, Row,Col} from 'react-bootstrap/';
+import {Container, Row, Col, Card, ListGroup, ListGroupItem} from 'react-bootstrap/';
 import { Link } from 'react-router-dom'
+import {useState, useEffect} from "react";
 
-function Pokemon({pokemon, deletedPoke}) {
-    const {name, hp, height, description, image, type, id} = pokemon
-  
+function Pokemon({pokemon, deletedPoke, types}) {
+    const {name, hp, height, description, image, id} = pokemon
+
     function handleDelete(){
         deletedPoke(id)
         fetch(`http://localhost:9292/pokemons/${id}`, 
@@ -13,27 +14,53 @@ function Pokemon({pokemon, deletedPoke}) {
             { method: 'DELETE' })
     }
    return (
-    <Col>
-        <img src ={image}/>
+
+<Card style={{ width: '14rem', marginLeft: '40px'}}>
+  <Card.Img variant="top" src={image} style={{width: '150px', marginLeft: '10%'}}/>
+  <Card.Body>
+    <Card.Title>{name}</Card.Title>
+    <Card.Text>{description}
+    </Card.Text>
+  </Card.Body>
+  <ListGroup className="list-group-flush">
+    <ListGroupItem>
+        
+        <img src={types.image} style={{width: '50px', marginLeft: '33%'}}></img>
+        <p style={{textAlign:'center'}}>{types.element}</p>
+    </ListGroupItem>
+    <ListGroupItem>HP: {hp}</ListGroupItem>
+    <ListGroupItem>Height: {height}in</ListGroupItem>
+  </ListGroup>
+    <Card.Body>
+        <Link to={`/pokemons/${id}/add_moves`}>
+            <button>Learn Moves</button>
+        </Link>
+        <Link to={`/pokemons/${id}/edit`}>
+            <button>Update</button>
+        </Link>
+        <button onClick={handleDelete}>Delete</button>
+    </Card.Body>
+</Card>
+        /* <img src ={image}/>
         <p>{name}</p>
-        {/* <p>{type.element}</p> */}
+        <p>{type.element}</p>
         <p>{hp}</p>
         <p>{height}</p>
         <p>{description}</p>
         
         <Link to={`/pokemons/${id}/add_moves`}>
             <button 
-            // onClick={() => handleEdit(id)}
+            onClick={() => handleEdit(id)}
             >Learn Moves</button>
         </Link>
         <Link to={`/pokemons/${id}/edit`}>
             <button 
-            // onClick={() => handleEdit(id)}
-            >Description</button>
+            onClick={() => handleEdit(id)}
+            >Add Moves</button>
         </Link>
 
-        <button onClick={handleDelete}>Delete</button>
-    </Col>
+        <button onClick={handleDelete}>Delete</button> */
+    
   )
 }
 
