@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 // import './App.css';
 import { Route, Routes,useNavigate } from "react-router";
 import React, {useEffect, useState} from 'react';

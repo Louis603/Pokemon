@@ -7,15 +7,6 @@ import { useNavigate } from "react-router";
 
 function NewPokemon({types, newPokemon}) {
     let navigate = useNavigate()
-    const allTypes = types.map(type => {
-        return (
-            <option 
-            key={type.id}
-            value= {type.id}>
-                {type.element}
-            </option>
-        )
-    })
     const [form, setForm] = useState({
         name: "",
         hp: "",
@@ -25,6 +16,16 @@ function NewPokemon({types, newPokemon}) {
         image: "",
         type:"",
         type_id: ""
+    })
+
+    const allTypes = types.map(type => {
+        return (
+            <option 
+            key={type.id}
+            value= {type.id}>
+                {type.element}
+            </option>
+        )
     })
     
     function handleChange(e){
