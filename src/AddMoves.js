@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, Button} from 'react-bootstrap/';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {useState} from "react";
 
@@ -11,6 +10,7 @@ function AddMoves({types, newMove}) {
         type_id: ""
     })
 
+    //maps Type array into selector options // value is Type.id which is put into type_id as foreign key
     const allTypes = types.map(type => {
         return <option key={type.id} value= {type.id}> {type.element} </option>
     })
@@ -18,6 +18,7 @@ function AddMoves({types, newMove}) {
     function handleChange(e) {
         setForm({...form,[e.target.name]:e.target.value})
     }
+
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -53,5 +54,4 @@ function AddMoves({types, newMove}) {
     </form>
   )
 }
-
 export default AddMoves

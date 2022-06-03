@@ -1,8 +1,11 @@
 import React from 'react'
 import Pokemon from './Pokemon'
-import {Container, Row, Col} from 'react-bootstrap/';
+import {Container, Row} from 'react-bootstrap/';
+import {useState} from "react";
 
 function PokemonList({pokemons, deletedPoke}) {
+  // const [pokeArr, setPokeArr] = useState([])
+  // setPokeArr(pokemons)
 
     const pokes = pokemons.map( pokemon => {
         return (
@@ -10,6 +13,7 @@ function PokemonList({pokemons, deletedPoke}) {
             key={pokemon.id}
             pokemon={pokemon}
             deletedPoke={deletedPoke}
+            types={pokemon.type}
         />
         )
     })
