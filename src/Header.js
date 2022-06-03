@@ -16,7 +16,7 @@ function Header() {
     <Navbar.Brand to="/">PokemonList</Navbar.Brand>
     <Nav className="me-auto">
       <NavLink to="/" style={links}>Home</NavLink>
-      <NavLink to="/pokemons" style={links}>Pokemons</NavLink>
+      <NavLink to="/pokemons" style={links}>Pokemon</NavLink>
       <NavLink to="/new" style={links}>Add New Pokemon</NavLink>
       <NavLink to="/new_moves" style={links}>Add New Move</NavLink>
     </Nav>
