@@ -12,7 +12,6 @@ function Home() {
     .then(resp => resp.json())
     .then((data) => setType(data))
   }, []);
-  console.log(type)
   
   useEffect(() =>{
     fetch("http://localhost:9292/pokemon/most_often")
@@ -25,7 +24,6 @@ function Home() {
     .then(resp => resp.json())
     .then((data) => setMove(data))
   }, []);
-  console.log(move)
 
   return (
     <div>

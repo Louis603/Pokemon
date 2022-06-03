@@ -1,5 +1,5 @@
 // import './App.css';
-import { Route, Routes,useNavigate } from "react-router";
+import { Route, Routes} from "react-router";
 import React, {useEffect, useState} from 'react';
 import PokemonList from './PokemonList'
 import Header from './Header'
@@ -13,7 +13,6 @@ function App() {
   const [pokemonArr, setpokemonArr] = useState([])
   const [types, setTypes] = useState([])
   const [moves, setMoves] = useState([])
-  const [singlePoke, setSinglePoke] = useState({})
 
 //GET requests for pokemons
   useEffect(() =>{
@@ -63,25 +62,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/pokemons" element={
-          <PokemonList pokemons={pokemonArr} deletedPoke={deletedPoke}/>} 
-        />
+          <PokemonList pokemons={pokemonArr} deletedPoke={deletedPoke}/>} />
         <Route path="/new" element={
-          <NewPokemon types={types} newPokemon={newPokemon}/>} 
-        />
+          <NewPokemon types={types} newPokemon={newPokemon}/>} />
         <Route path="/pokemons/:id/add_moves" element={
-          <PokemonDetails
-            moves={moves}
-            
-            />}
-        />
+          <PokemonDetails moves={moves}/>} />
         <Route path="/pokemons/:id/edit" element={
           <PokemonDescription
-          handlePokeEdit={handlePokeEdit} 
-            />}
-        />
+          handlePokeEdit={handlePokeEdit} />}/>
         <Route path="/new_moves" element={
-          <AddMoves types={types} newMove={newMove}/>} 
-        />
+          <AddMoves types={types} newMove={newMove}/>}/>
       </Routes>
     </div>
   );

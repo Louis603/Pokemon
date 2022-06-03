@@ -1,11 +1,11 @@
 import React from 'react'
 import { Form, Button} from 'react-bootstrap/';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {useState, useEffect} from "react";
 import { useParams } from 'react-router-dom'
 
 function PokemonDescription({handlePokeEdit}) {
+    //useState has to include a nested obj of types or else throws error cus of the includes from controller
     const [singlePoke, setSinglePoke] = useState({ 
         types:{} 
     })
@@ -54,9 +54,9 @@ function PokemonDescription({handlePokeEdit}) {
         src={singlePoke.types.image}
         style={{width: '50px'}}>
         </img>
-        <p>{singlePoke.hp}</p>
-        <p>{singlePoke.height}</p>
-        <p>{singlePoke.description}</p>
+        <p>HP: {singlePoke.hp}</p>
+        <p>Height: {singlePoke.height}in</p>
+        <p>Description: {singlePoke.description}</p>
 
         <form onSubmit={(e)=>handleSubmit(e)} >
             <Form.Label column lg={10} >

@@ -1,6 +1,6 @@
 import React from 'react'
 import Pokemon from './Pokemon'
-import {Container, Row, Col} from 'react-bootstrap/';
+import {Container, Row} from 'react-bootstrap/';
 import {useState} from "react";
 
 function PokemonList({pokemons, deletedPoke}) {

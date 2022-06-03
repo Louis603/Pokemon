@@ -5,7 +5,6 @@ import {NavLink} from 'react-router-dom'
 let links = {
   padding: 10,
   textDecoration: "none",
-  // color: "#89d06",
   color: "white",
   fontWeight: 600
 }

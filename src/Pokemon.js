@@ -1,11 +1,12 @@
 import React from 'react'
-import {Container, Row, Col, Card, ListGroup, ListGroupItem} from 'react-bootstrap/';
+import {Card, ListGroup, ListGroupItem} from 'react-bootstrap/';
 import { Link } from 'react-router-dom'
-import {useState, useEffect} from "react";
+
 
 function Pokemon({pokemon, deletedPoke, types}) {
     const {name, hp, height, description, image, id} = pokemon
 
+    //this delete function deletes from Pokemon table and PokemonMoves table
     function handleDelete(){
         deletedPoke(id)
         fetch(`http://localhost:9292/pokemons/${id}`, 
@@ -24,7 +25,6 @@ function Pokemon({pokemon, deletedPoke, types}) {
   </Card.Body>
   <ListGroup className="list-group-flush">
     <ListGroupItem>
-        
         <img src={types.image} style={{width: '50px', marginLeft: '33%'}}></img>
         <p style={{textAlign:'center'}}>{types.element}</p>
     </ListGroupItem>
